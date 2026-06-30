@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Leaf Cafe — Bhopal's premium cafe in Arera Colony. Artisan coffee, multicuisine food, custom cakes. Open daily 11 AM – 12 AM. Order on Swiggy." />
+  <title>The Leaf Cafe | Bhopal's Most Beloved Cafe Experience</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            espresso:     '#5A4228',
+            cream:        '#E5E0D8',
+            'cream-dark': '#E5D2B8',
+            gold:         '#809671',
+            'gold-light': '#B3B792',
+            mahogany:     '#D2AB80',
+            roast:        '#725C3A',
+            'roast-mid':  '#8A6E4A',
+          },
+          fontFamily: {
+            playfair: ['"Playfair Display"', 'Georgia', 'serif'],
+            inter:    ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(114,92,58,0.65) 0%,
+        rgba(114,92,58,0.35) 45%,
+        rgba(114,92,58,0.80) 100%
+      );
+    }
+
+    .text-shadow-hero {
+      text-shadow: 0 4px 28px rgba(0,0,0,0.55);
+    }
+
+    .card-lift {
+      transition: transform 0.32s cubic-bezier(.22,.68,0,1.2), box-shadow 0.32s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(210,171,128,0.22);
+    }
+
+    .nav-scrolled {
+      background-color: #725C3A;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+    }
+
+    .leaf-line {
+      background: linear-gradient(90deg, transparent, #809671 40%, #809671 60%, transparent);
+      height: 1px;
+    }
+
+    .img-zoom {
+      transition: transform 0.55s cubic-bezier(.22,.68,0,1.2);
+    }
+    .img-zoom:hover { transform: scale(1.06); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up         { animation: fadeUp 0.75s ease forwards; }
+    .fade-up.delay-1 { animation-delay: 0.18s; opacity: 0; }
+    .fade-up.delay-2 { animation-delay: 0.36s; opacity: 0; }
+    .fade-up.delay-3 { animation-delay: 0.52s; opacity: 0; }
+
+    @keyframes bounceSoft {
+      0%,100% { transform: translateY(0) translateX(-50%); }
+      50%      { transform: translateY(-8px) translateX(-50%); }
+    }
+    .bounce-soft { animation: bounceSoft 2s ease-in-out infinite; }
+  </style>
+</head>
+
+<body class="font-inter bg-cream text-espresso overflow-x-hidden">
+
+<!-- ================================================================
+     NAVIGATION
+================================================================ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-400 py-4 px-6 lg:px-14">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3 group flex-shrink-0">
+      <div class="w-10 h-10 rounded-full bg-gold flex items-center justify-center shadow-lg shadow-gold/30">
+        <i class="fa-solid fa-leaf text-roast text-base"></i>
+      </div>
+      <div class="leading-none">
+        <span class="font-playfair text-cream text-xl font-bold block">the leaf</span>
+        <span class="text-gold text-[10px] tracking-[0.28em] uppercase font-inter font-medium">cafe &amp; brew</span>
+      </div>
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="hidden lg:flex items-center gap-8">
+      <li><a href="#about"   class="text-cream/75 hover:text-gold transition-colors text-sm font-medium tracking-wide">About</a></li>
+      <li><a href="#menu"    class="text-cream/75 hover:text-gold transition-colors text-sm font-medium tracking-wide">Menu</a></li>
+      <li><a href="#reviews" class="text-cream/75 hover:text-gold transition-colors text-sm font-medium tracking-wide">Reviews</a></li>
+      <li><a href="#contact" class="text-cream/75 hover:text-gold transition-colors text-sm font-medium tracking-wide">Find Us</a></li>
+    </ul>
+
+    <!-- Desktop CTA -->
+    <a href="tel:07000109775"
+       class="hidden lg:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-roast font-semibold px-5 py-2.5 rounded-full transition-all duration-300 text-sm shadow-md shadow-gold/20">
+      <i class="fa-solid fa-phone text-xs"></i> Reserve a Table
+    </a>
+
+    <!-- Mobile toggle -->
+    <button id="menuToggle" aria-label="Toggle navigation"
+            class="lg:hidden text-cream text-2xl focus:outline-none">
+      <i class="fa-solid fa-bars" id="toggleIcon"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileMenu"
+       class="lg:hidden hidden mt-3 bg-roast-mid rounded-2xl p-6 mx-0 shadow-2xl border border-cream/10">
+    <ul class="flex flex-col gap-5">
+      <li><a href="#about"   onclick="closeMobile()" class="text-cream/80 hover:text-gold transition-colors font-medium block">About</a></li>
+      <li><a href="#menu"    onclick="closeMobile()" class="text-cream/80 hover:text-gold transition-colors font-medium block">Menu</a></li>
+      <li><a href="#reviews" onclick="closeMobile()" class="text-cream/80 hover:text-gold transition-colors font-medium block">Reviews</a></li>
+      <li><a href="#contact" onclick="closeMobile()" class="text-cream/80 hover:text-gold transition-colors font-medium block">Find Us</a></li>
+      <li class="pt-2 border-t border-cream/10 flex flex-col gap-3">
+        <a href="tel:07000109775"
+           class="bg-gold text-roast font-semibold px-5 py-3 rounded-full text-center flex items-center justify-center gap-2">
+          <i class="fa-solid fa-phone text-xs"></i> Call Now
+        </a>
+        <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer"
+           class="bg-orange-500 text-white font-semibold px-5 py-3 rounded-full text-center flex items-center justify-center gap-2">
+          <i class="fa-solid fa-motorcycle text-xs"></i> Order on Swiggy
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- ================================================================
+     HERO SECTION
+================================================================ -->
+<section class="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden">
+
+  <!-- Background image -->
+  <img
+    src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&q=85"
+    alt="The Leaf Cafe — warm, cozy interior"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <!-- Colour overlay -->
+  <div class="absolute inset-0 hero-overlay"></div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 text-center max-w-4xl mx-auto px-6">
+    <p class="text-gold text-xs md:text-sm tracking-[0.38em] uppercase font-medium mb-6 fade-up">
+      Arera Colony · Bhopal
+    </p>
+    <h1 class="font-playfair text-5xl md:text-7xl lg:text-[88px] font-bold text-cream leading-tight mb-6 text-shadow-hero fade-up delay-1">
+      Where Every <em class="not-italic text-gold">Sip</em><br class="hidden sm:block"/>
+      Tells a Story
+    </h1>
+    <p class="text-cream/78 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed fade-up delay-2">
+      Bhopal's favourite corner for artisan coffee, global bites, and moments worth savouring. Open every day — because great days deserve great food.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up delay-3">
+      <a href="#menu"
+         class="bg-gold hover:bg-gold-light text-roast font-semibold px-8 py-4 rounded-full transition-all duration-300 text-sm md:text-base inline-flex items-center justify-center gap-2 shadow-lg shadow-gold/25">
+        <i class="fa-solid fa-utensils"></i>
+        Explore Our Menu
+      </a>
+      <a href="tel:07000109775"
+         class="border-2 border-cream/55 hover:border-gold text-cream hover:text-gold px-8 py-4 rounded-full transition-all duration-300 text-sm md:text-base inline-flex items-center justify-center gap-2">
+        <i class="fa-solid fa-phone"></i>
+        Call Now
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 text-cream/45 bounce-soft">
+    <i class="fa-solid fa-chevron-down text-lg"></i>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     ANNOUNCEMENT BAR
+================================================================ -->
+<div class="bg-roast text-cream py-3 px-6">
+  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-xs md:text-sm">
+    <span class="flex items-center gap-2">
+      <i class="fa-solid fa-clock text-gold"></i>
+      Open Daily:&nbsp;<strong class="text-gold">11:00 AM – 12:00 AM</strong>
+    </span>
+    <span class="hidden sm:block w-px h-4 bg-cream/15 mx-1"></span>
+    <span class="flex items-center gap-2">
+      <i class="fa-solid fa-location-dot text-gold"></i>
+      E-7, Arera Colony, Bhopal
+    </span>
+    <span class="hidden sm:block w-px h-4 bg-cream/15 mx-1"></span>
+    <span class="flex items-center gap-2">
+      <i class="fa-solid fa-star text-gold"></i>
+      <strong class="text-gold">4.4 ★</strong>&nbsp;on Google · Available on Swiggy
+    </span>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     ABOUT US
+================================================================ -->
+<section id="about" class="py-20 lg:py-28 px-6 lg:px-14 bg-cream">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Text -->
+      <div>
+        <p class="text-gold text-xs tracking-[0.32em] uppercase font-medium mb-4">Our Story</p>
+        <h2 class="font-playfair text-4xl md:text-5xl font-bold text-espresso leading-tight mb-5">
+          A Cafe Born from<br/>
+          <em class="not-italic text-mahogany">Passion &amp; Warmth</em>
+        </h2>
+        <div class="leaf-line w-28 mb-8"></div>
+
+        <p class="text-espresso/68 text-base md:text-lg leading-relaxed mb-5">
+          Nestled on the first floor of E-7, Arera Colony, <strong class="text-espresso">The Leaf Cafe</strong> was built on a simple belief — that great food and genuine company deserve a setting that feels like home. Since we opened our doors, Bhopal has made us their favourite escape for slow Sunday mornings, celebratory evenings, and everything in between.
+        </p>
+        <p class="text-espresso/68 text-base md:text-lg leading-relaxed mb-10">
+          Our kitchen blends multicuisine magic — silky pasta, golden paninis, and sizzling plates that arrive in a burst of aroma. But it's our signature
+          <strong class="text-mahogany">Hazelnut Coffee</strong> and our hand-crafted celebration cakes that have truly stolen the city's heart.
+        </p>
+
+        <!-- Feature grid -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-cream-dark rounded-2xl p-4 flex items-start gap-3">
+            <div class="w-9 h-9 bg-gold/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-mug-hot text-gold text-sm"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-espresso text-sm">Artisan Brews</p>
+              <p class="text-espresso/55 text-xs mt-0.5">Crafted with care, cup by cup</p>
+            </div>
+          </div>
+          <div class="bg-cream-dark rounded-2xl p-4 flex items-start gap-3">
+            <div class="w-9 h-9 bg-gold/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-cake-candles text-gold text-sm"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-espresso text-sm">Custom Cakes</p>
+              <p class="text-espresso/55 text-xs mt-0.5">Designed around your story</p>
+            </div>
+          </div>
+          <div class="bg-cream-dark rounded-2xl p-4 flex items-start gap-3">
+            <div class="w-9 h-9 bg-gold/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-globe text-gold text-sm"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-espresso text-sm">Multicuisine</p>
+              <p class="text-espresso/55 text-xs mt-0.5">Global flavours, local heart</p>
+            </div>
+          </div>
+          <div class="bg-cream-dark rounded-2xl p-4 flex items-start gap-3">
+            <div class="w-9 h-9 bg-gold/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-couch text-gold text-sm"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-espresso text-sm">Premium Ambiance</p>
+              <p class="text-espresso/55 text-xs mt-0.5">Cozy corners, every time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="relative">
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
+          <img
+            src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=900&q=85"
+            alt="Inside The Leaf Cafe"
+            class="w-full h-full object-cover img-zoom"
+          />
+          <!-- Rating card -->
+          <div class="absolute bottom-6 left-5 right-5 bg-roast/88 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4">
+            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-star text-roast text-lg"></i>
+            </div>
+            <div>
+              <p class="text-gold font-playfair font-bold text-xl leading-none">4.4 / 5.0</p>
+              <p class="text-cream/65 text-xs mt-1">Based on 200+ Google reviews</p>
+            </div>
+            <div class="ml-auto flex text-gold text-xs gap-0.5">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Decorative orbs -->
+        <div class="absolute -top-6 -right-6 w-32 h-32 bg-gold/12 rounded-full -z-10"></div>
+        <div class="absolute -bottom-10 -left-10 w-52 h-52 bg-mahogany/6 rounded-full -z-10"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Leaf Divider -->
+<div class="flex items-center justify-center py-2 bg-cream px-6">
+  <div class="leaf-line flex-1 max-w-xs"></div>
+  <span class="mx-5 text-gold text-base"><i class="fa-solid fa-leaf"></i></span>
+  <div class="leaf-line flex-1 max-w-xs"></div>
+</div>
+
+
+<!-- ================================================================
+     MENU SECTION
+================================================================ -->
+<section id="menu" class="py-20 lg:py-28 px-6 lg:px-14 bg-cream">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <p class="text-gold text-xs tracking-[0.32em] uppercase font-medium mb-4">What We Serve</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold text-espresso leading-tight">
+        A Menu Built for <em class="not-italic text-mahogany">Every Craving</em>
+      </h2>
+      <p class="text-espresso/58 text-base md:text-lg mt-4 max-w-xl mx-auto leading-relaxed">
+        From the first sip of morning coffee to the last slice of a custom cake — every visit is made memorable.
+      </p>
+    </div>
+
+    <!-- 3-column cards -->
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Card 1 — Coffee -->
+      <div class="card-lift bg-white rounded-3xl overflow-hidden shadow-sm border border-cream-dark group flex flex-col">
+        <div class="relative h-52 overflow-hidden flex-shrink-0">
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=85"
+            alt="Artisan Coffee at The Leaf Cafe"
+            class="w-full h-full object-cover img-zoom"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-roast/65 to-transparent"></div>
+          <span class="absolute bottom-4 left-4 bg-gold text-roast text-xs font-bold px-3 py-1.5 rounded-full">
+            Our Speciality
+          </span>
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <div class="w-11 h-11 bg-gold/15 rounded-xl flex items-center justify-center mb-4">
+            <i class="fa-solid fa-mug-hot text-gold text-lg"></i>
+          </div>
+          <h3 class="font-playfair text-2xl font-bold text-espresso mb-3">
+            Artisan Coffee &amp; Beverages
+          </h3>
+          <p class="text-espresso/65 text-sm leading-relaxed mb-5 flex-1">
+            Our signature <strong class="text-mahogany">Hazelnut Coffee</strong> has built a cult following across Bhopal. From velvety cold brews and creamy cappuccinos to seasonal specials — every cup is crafted with intention and served with warmth.
+          </p>
+          <ul class="space-y-2.5 mt-auto">
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Hazelnut Coffee (The Crowd Favourite)
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Cold Brews, Frappes &amp; Mocktails
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Seasonal Specials &amp; Teas
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 2 — Multicuisine -->
+      <div class="card-lift bg-white rounded-3xl overflow-hidden shadow-sm border border-cream-dark group flex flex-col">
+        <div class="relative h-52 overflow-hidden flex-shrink-0">
+          <img
+            src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=700&q=85"
+            alt="Multicuisine Food at The Leaf Cafe"
+            class="w-full h-full object-cover img-zoom"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-roast/65 to-transparent"></div>
+          <span class="absolute bottom-4 left-4 bg-mahogany text-cream text-xs font-bold px-3 py-1.5 rounded-full">
+            Chef's Picks
+          </span>
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <div class="w-11 h-11 bg-gold/15 rounded-xl flex items-center justify-center mb-4">
+            <i class="fa-solid fa-bowl-food text-gold text-lg"></i>
+          </div>
+          <h3 class="font-playfair text-2xl font-bold text-espresso mb-3">
+            Multicuisine Delights
+          </h3>
+          <p class="text-espresso/65 text-sm leading-relaxed mb-5 flex-1">
+            Cravings don't follow a single cuisine — and neither do we. Expect perfectly grilled <strong class="text-mahogany">Paninis</strong>, silky <strong class="text-mahogany">Pasta</strong>, and dramatic <strong class="text-mahogany">Sizzlers</strong> that arrive at your table in a cloud of steam and aroma, every single time.
+          </p>
+          <ul class="space-y-2.5 mt-auto">
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Freshly Grilled Paninis
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Italian-style Pasta &amp; Risottos
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Sizzlers, Grills &amp; Fusion Bites
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 3 — Cakes -->
+      <div class="card-lift bg-white rounded-3xl overflow-hidden shadow-sm border border-cream-dark group flex flex-col">
+        <div class="relative h-52 overflow-hidden flex-shrink-0">
+          <img
+            src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&q=85"
+            alt="Custom Cakes at The Leaf Cafe"
+            class="w-full h-full object-cover img-zoom"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-roast/65 to-transparent"></div>
+          <span class="absolute bottom-4 left-4 bg-gold text-roast text-xs font-bold px-3 py-1.5 rounded-full">
+            Made to Order
+          </span>
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <div class="w-11 h-11 bg-gold/15 rounded-xl flex items-center justify-center mb-4">
+            <i class="fa-solid fa-cake-candles text-gold text-lg"></i>
+          </div>
+          <h3 class="font-playfair text-2xl font-bold text-espresso mb-3">
+            Custom Cakes &amp; Bakery
+          </h3>
+          <p class="text-espresso/65 text-sm leading-relaxed mb-5 flex-1">
+            Every celebration deserves a masterpiece. Our in-house bakers create <strong class="text-mahogany">stunning custom cakes</strong> designed around your vision — birthdays, anniversaries, milestones, or just because. Beautiful inside and out, always delivered on time.
+          </p>
+          <ul class="space-y-2.5 mt-auto">
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Fully Custom-Designed Cakes
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Fresh Pastries, Muffins &amp; Tarts
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-espresso/68">
+              <i class="fa-solid fa-circle-check text-gold text-xs flex-shrink-0"></i>
+              Pre-Orders &amp; Advance Booking
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Swiggy CTA -->
+    <div class="mt-14 text-center">
+      <p class="text-espresso/50 text-sm mb-4">Can't make it in? We deliver right to your door.</p>
+      <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center gap-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 shadow-lg shadow-orange-500/25 text-sm md:text-base">
+        <i class="fa-solid fa-motorcycle text-base"></i>
+        Order on Swiggy
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================================================
+     GALLERY STRIP
+================================================================ -->
+<section class="bg-espresso py-1">
+  <div class="flex gap-1 overflow-hidden">
+    <div class="w-1/4 h-44 md:h-56 overflow-hidden flex-shrink-0">
+      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&q=80"
+           alt="Cafe vibes" class="w-full h-full object-cover img-zoom opacity-80 hover:opacity-100 transition-opacity duration-300" />
+    </div>
+    <div class="w-1/4 h-44 md:h-56 overflow-hidden flex-shrink-0">
+      <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=500&q=80"
+           alt="Coffee being poured" class="w-full h-full object-cover img-zoom opacity-80 hover:opacity-100 transition-opacity duration-300" />
+    </div>
+    <div class="w-1/4 h-44 md:h-56 overflow-hidden flex-shrink-0">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&q=80"
+           alt="Latte art" class="w-full h-full object-cover img-zoom opacity-80 hover:opacity-100 transition-opacity duration-300" />
+    </div>
+    <div class="w-1/4 h-44 md:h-56 overflow-hidden flex-shrink-0">
+      <img src="https://images.unsplash.com/photo-1559305616-3f99cd43e353?w=500&q=80"
+           alt="Desserts" class="w-full h-full object-cover img-zoom opacity-80 hover:opacity-100 transition-opacity duration-300" />
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     SOCIAL PROOF / REVIEWS
+================================================================ -->
+<section id="reviews" class="py-20 lg:py-28 px-6 lg:px-14 bg-cream-dark">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <p class="text-gold text-xs tracking-[0.32em] uppercase font-medium mb-4">What Bhopal Is Saying</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold text-espresso">
+        Loved by the <em class="not-italic text-mahogany">City</em>
+      </h2>
+      <!-- Rating badge -->
+      <div class="inline-flex items-center gap-2.5 bg-white border border-gold/25 rounded-full px-5 py-2 mt-6 shadow-sm">
+        <div class="flex text-gold text-sm gap-0.5">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <span class="font-bold text-espresso">4.4</span>
+        <span class="text-espresso/50 text-sm">· 200+ Reviews on Google</span>
+      </div>
+    </div>
+
+    <!-- Review Cards -->
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Review 1 -->
+      <div class="bg-white rounded-3xl p-8 shadow-sm border border-cream-dark flex flex-col">
+        <div class="text-gold text-5xl font-playfair leading-none mb-3 opacity-35">"</div>
+        <div class="flex text-gold text-sm gap-0.5 mb-4">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="text-espresso/72 leading-relaxed text-sm flex-1 mb-6">
+          I've been to a lot of cafes in Bhopal but The Leaf is something else entirely. The hazelnut coffee is absolutely divine — I dream about it. The interiors are stunning and the staff are incredibly warm. We stayed almost 3 hours and nobody once rushed us. A 10/10 experience every single time.
+        </p>
+        <div class="flex items-center gap-3 border-t border-cream-dark pt-5">
+          <div class="w-10 h-10 bg-mahogany/18 rounded-full flex items-center justify-center text-mahogany font-bold text-sm flex-shrink-0">PV</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-espresso text-sm">Priya Verma</p>
+            <p class="text-espresso/40 text-xs truncate">Bhopal Resident · March 2024</p>
+          </div>
+          <i class="fa-brands fa-google text-espresso/18 text-xl flex-shrink-0"></i>
+        </div>
+      </div>
+
+      <!-- Review 2 — highlighted / dark card -->
+      <div class="bg-roast rounded-3xl p-8 shadow-xl flex flex-col relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gold/8 rounded-full -translate-y-16 translate-x-16 pointer-events-none"></div>
+        <div class="text-gold text-5xl font-playfair leading-none mb-3 opacity-55 relative z-10">"</div>
+        <div class="flex text-gold text-sm gap-0.5 mb-4 relative z-10">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="text-cream/73 leading-relaxed text-sm flex-1 mb-6 relative z-10">
+          We ordered a custom birthday cake from The Leaf and it completely blew everyone away. The design was exactly what we had imagined and the taste was even better. Their pasta and sizzlers are also chef's kiss. One of the rare places in Bhopal where the food, the vibe, and the service all hit equally hard. We are definitely coming back!
+        </p>
+        <div class="flex items-center gap-3 border-t border-cream/10 pt-5 relative z-10">
+          <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-gold font-bold text-sm flex-shrink-0">RT</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-cream text-sm">Rahul Tiwari</p>
+            <p class="text-cream/40 text-xs truncate">Arera Colony · February 2024</p>
+          </div>
+          <i class="fa-brands fa-google text-cream/15 text-xl flex-shrink-0"></i>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="bg-white rounded-3xl p-8 shadow-sm border border-cream-dark flex flex-col">
+        <div class="text-gold text-5xl font-playfair leading-none mb-3 opacity-35">"</div>
+        <div class="flex text-gold text-sm gap-0.5 mb-4">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star text-gold/50"></i>
+        </div>
+        <p class="text-espresso/72 leading-relaxed text-sm flex-1 mb-6">
+          The ambiance here is so incredibly cozy and Instagram-worthy — I could spend an entire afternoon in that space. Their paninis are perfectly crispy and the cold coffee is completely addictive. It gets a little busy on weekends, so plan ahead, but it's absolutely worth the wait. A true gem in Arera Colony!
+        </p>
+        <div class="flex items-center gap-3 border-t border-cream-dark pt-5">
+          <div class="w-10 h-10 bg-mahogany/18 rounded-full flex items-center justify-center text-mahogany font-bold text-sm flex-shrink-0">SM</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-espresso text-sm">Sneha Malhotra</p>
+            <p class="text-espresso/40 text-xs truncate">Bhopal · January 2024</p>
+          </div>
+          <i class="fa-brands fa-google text-espresso/18 text-xl flex-shrink-0"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     CONTACT / FIND US
+================================================================ -->
+<section id="contact" class="py-20 lg:py-28 px-6 lg:px-14 bg-cream">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <p class="text-gold text-xs tracking-[0.32em] uppercase font-medium mb-4">Come Visit Us</p>
+      <h2 class="font-playfair text-4xl md:text-5xl font-bold text-espresso">
+        Find Your <em class="not-italic text-mahogany">Favourite Seat</em>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Map -->
+      <div class="rounded-3xl overflow-hidden shadow-2xl border border-cream-dark" style="height:420px;">
+        <iframe
+          src="https://www.google.com/maps?q=The+Leaf+Cafe+E7+Arera+Colony+Bhopal+Madhya+Pradesh+462016&output=embed"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="The Leaf Cafe on Google Maps"
+        ></iframe>
+      </div>
+
+      <!-- Info cards -->
+      <div class="flex flex-col gap-5">
+
+        <!-- Address -->
+        <div class="bg-white rounded-2xl p-5 flex items-start gap-4 border border-cream-dark shadow-sm">
+          <div class="w-12 h-12 bg-gold/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-location-dot text-gold text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-espresso mb-1 text-sm md:text-base">Address</h4>
+            <p class="text-espresso/62 text-sm leading-relaxed">
+              1st Floor, E7/161, E-7, Arera Colony<br/>
+              Bhopal, Madhya Pradesh 462016
+            </p>
+            <a href="https://www.google.com/maps?q=The+Leaf+Cafe+Arera+Colony+Bhopal" target="_blank" rel="noopener noreferrer"
+               class="text-gold text-xs mt-2 inline-flex items-center gap-1 hover:underline font-medium">
+              Get Directions <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="bg-white rounded-2xl p-5 flex items-start gap-4 border border-cream-dark shadow-sm">
+          <div class="w-12 h-12 bg-gold/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-phone text-gold text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-espresso mb-1 text-sm md:text-base">Phone</h4>
+            <a href="tel:07000109775"
+               class="text-espresso/62 hover:text-gold transition-colors text-sm font-medium">
+              +91 70001 09775
+            </a>
+            <p class="text-espresso/38 text-xs mt-1">Available during cafe hours</p>
+          </div>
+        </div>
+
+        <!-- Hours -->
+        <div class="bg-white rounded-2xl p-5 flex items-start gap-4 border border-cream-dark shadow-sm">
+          <div class="w-12 h-12 bg-gold/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-clock text-gold text-xl"></i>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-espresso mb-2 text-sm md:text-base">Opening Hours</h4>
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-espresso/62">Monday – Sunday</span>
+                <span class="font-semibold text-espresso">11:00 AM – 12:00 AM</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-espresso/62">Public Holidays</span>
+                <span class="text-green-600 font-medium text-xs">Open as usual</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="grid grid-cols-2 gap-4 pt-1">
+          <a href="tel:07000109775"
+             class="bg-espresso hover:bg-roast-mid text-cream font-semibold py-4 px-5 rounded-2xl text-center transition-all duration-300 text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-phone"></i>
+            Call Now
+          </a>
+          <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer"
+             class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-5 rounded-2xl text-center transition-all duration-300 text-sm flex items-center justify-center gap-2 shadow-md shadow-orange-500/20">
+            <i class="fa-solid fa-motorcycle"></i>
+            Order on Swiggy
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="bg-roast text-cream pt-16 pb-10 px-6 lg:px-14">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Grid -->
+    <div class="grid md:grid-cols-3 gap-12 mb-12">
+
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-full bg-gold flex items-center justify-center shadow-md shadow-gold/20">
+            <i class="fa-solid fa-leaf text-roast text-base"></i>
+          </div>
+          <div class="leading-none">
+            <span class="font-playfair text-cream text-xl font-bold block">the leaf</span>
+            <span class="text-gold text-[10px] tracking-[0.25em] uppercase">cafe &amp; brew</span>
+          </div>
+        </div>
+        <p class="text-cream/50 text-sm leading-relaxed mb-6">
+          Your cozy corner in the heart of Bhopal. Artisan coffee, global cuisine, and a vibe that keeps you coming back, day after day.
+        </p>
+        <!-- Social icons -->
+        <div class="flex gap-3">
+          <a href="#" aria-label="Instagram"
+             class="w-9 h-9 bg-cream/10 hover:bg-gold hover:text-roast text-cream/55 rounded-full flex items-center justify-center transition-all duration-300">
+            <i class="fa-brands fa-instagram text-sm"></i>
+          </a>
+          <a href="#" aria-label="Facebook"
+             class="w-9 h-9 bg-cream/10 hover:bg-gold hover:text-roast text-cream/55 rounded-full flex items-center justify-center transition-all duration-300">
+            <i class="fa-brands fa-facebook-f text-sm"></i>
+          </a>
+          <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" aria-label="Order on Swiggy"
+             class="w-9 h-9 bg-cream/10 hover:bg-orange-500 text-cream/55 rounded-full flex items-center justify-center transition-all duration-300">
+            <i class="fa-solid fa-motorcycle text-sm"></i>
+          </a>
+          <a href="tel:07000109775" aria-label="Call us"
+             class="w-9 h-9 bg-cream/10 hover:bg-gold hover:text-roast text-cream/55 rounded-full flex items-center justify-center transition-all duration-300">
+            <i class="fa-solid fa-phone text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h5 class="font-playfair text-base font-bold mb-5 text-gold">Quick Links</h5>
+        <ul class="space-y-3">
+          <li><a href="#about"   class="text-cream/50 hover:text-gold transition-colors text-sm">About The Leaf</a></li>
+          <li><a href="#menu"    class="text-cream/50 hover:text-gold transition-colors text-sm">Our Menu</a></li>
+          <li><a href="#reviews" class="text-cream/50 hover:text-gold transition-colors text-sm">Customer Reviews</a></li>
+          <li><a href="#contact" class="text-cream/50 hover:text-gold transition-colors text-sm">Find Us</a></li>
+          <li>
+            <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer"
+               class="text-orange-400 hover:text-orange-300 transition-colors text-sm inline-flex items-center gap-2">
+              <i class="fa-solid fa-motorcycle text-xs"></i> Order on Swiggy
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h5 class="font-playfair text-base font-bold mb-5 text-gold">Visit &amp; Contact</h5>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-location-dot text-gold text-sm mt-0.5 flex-shrink-0"></i>
+            <p class="text-cream/50 text-sm leading-relaxed">
+              1st Floor, E7/161, E-7<br/>
+              Arera Colony, Bhopal MP 462016
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-phone text-gold text-sm flex-shrink-0"></i>
+            <a href="tel:07000109775"
+               class="text-cream/50 hover:text-gold transition-colors text-sm">
+              +91 70001 09775
+            </a>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-clock text-gold text-sm flex-shrink-0"></i>
+            <p class="text-cream/50 text-sm">Daily: 11:00 AM – 12:00 AM</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-star text-gold text-sm flex-shrink-0"></i>
+            <p class="text-cream/50 text-sm">4.4★ on Google Maps</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-cream/8 pt-8 flex flex-col md:flex-row items-center justify-between gap-3">
+      <p class="text-cream/28 text-xs">© 2024 The Leaf Cafe, Bhopal. All rights reserved.</p>
+      <p class="text-cream/28 text-xs flex items-center gap-1.5">
+        <i class="fa-solid fa-leaf text-gold text-[10px]"></i>
+        Crafted with love in Bhopal
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ================================================================
+     JAVASCRIPT
+================================================================ -->
+<script>
+  // --- Navbar scroll transparency effect ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('nav-scrolled');
+    } else {
+      navbar.classList.remove('nav-scrolled');
+    }
+  });
+
+  // --- Mobile menu toggle ---
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu  = document.getElementById('mobileMenu');
+  const toggleIcon  = document.getElementById('toggleIcon');
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isHidden = mobileMenu.classList.toggle('hidden');
+    toggleIcon.className = isHidden ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+  });
+
+  function closeMobile() {
+    mobileMenu.classList.add('hidden');
+    toggleIcon.className = 'fa-solid fa-bars';
+  }
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target)) {
+      closeMobile();
+    }
+  });
+
+  // Close on nav link click (delegated)
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeMobile);
+  });
+</script>
+
+</body>
+</html>
